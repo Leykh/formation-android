@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".vue.MainActivity"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="center_horizontal|center_vertical"
+        android:orientation="vertical"
+
+        android:visibility="gone">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Faire une formation  BD"
+            android:textSize="28sp" />
+
+        <ImageButton
+            android:id="@+id/btnFormulaire"
+            android:layout_width="wrap_content"
+            android:layout_height="151dp"
+            app:srcCompat="@drawable/formulaire" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="center_horizontal|center_vertical"
+        android:orientation="vertical"
+
+        android:visibility="gone">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Liste formation BD"
+            android:textSize="28sp" />
+
+        <ImageButton
+            android:id="@+id/btnListeBdd"
+            android:layout_width="wrap_content"
+            android:layout_height="170dp"
+            app:srcCompat="@drawable/liste" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="center_horizontal|center_vertical"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Liste Formation"
+            android:textSize="28sp" />
+
+        <ImageButton
+            android:id="@+id/btnListeServeur"
+            android:layout_width="238dp"
+            android:layout_height="166dp"
+            app:srcCompat="@drawable/aliste" />
+
+    </LinearLayout>
+
+</LinearLayout>
