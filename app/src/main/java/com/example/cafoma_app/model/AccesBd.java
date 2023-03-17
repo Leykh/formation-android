@@ -36,7 +36,7 @@ public class AccesBd {
         dataBase.close();
     }
 
-    public List<Formation> getListFacture() {
+    public List<Formation> getListFormation() {
         Formation formation = null;
         List<Formation> formationList = null;
         SQLiteDatabase dataBase = mDbHelper.getReadableDatabase();

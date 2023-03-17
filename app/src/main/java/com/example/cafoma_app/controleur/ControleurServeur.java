@@ -24,13 +24,13 @@ public final class ControleurServeur implements Controleur {
         }
         return ControleurServeur.instance;
     }
-    public List<Formation> getFactureList() {
+    public List<Formation> getFormationList() {
         return formationList;
     }
-    public void setFactureList(List<Formation> FactureList) {
-        this.formationList = FactureList;
+    public void setFormationList(List<Formation> FormationList) {
+        this.formationList = FormationList;
     }
-    public Formation getFacture(){ return formation; }
-    public void setFacture(Formation formation){ this.formation = formation; }
+    public Formation getFormation(){ return formation; }
+    public void setFormation(Formation formation){ this.formation = formation; }
 
 }

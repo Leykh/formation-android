@@ -20,17 +20,13 @@ public class AccesDistant implements ReponseAsyncItf {
     }
     @Override
     public void reponseRequete(String reponse) {
-        Log.i(TAG, "reponse=" + reponse);
         String[] message = reponse.split("#");
-        Log.i(TAG, "message[0]=" + message[0]);
         if(message.length > 1) {
             if (message[0].equals("lister")) {
                 try {
-                    Log.i(TAG, "message[1]=" + message[1]);
-                    JSONArray jsonTabFacture = new JSONArray(message[1]);
-                    Log.i(TAG, "jsonTabFacture=" + jsonTabFacture);
-                    List<Formation> formationList = parserFactureList(jsonTabFacture);
-                    controleurServeur.setFactureList(formationList);
+                    JSONArray jsonTabFormation = new JSONArray(message[1]);
+                    List<Formation> formationList = parserFormationList(jsonTabFormation);
+                    controleurServeur.setFormationList(formationList);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -46,18 +42,19 @@ public class AccesDistant implements ReponseAsyncItf {
         requeteHttp.addParam("operation", operation);
         requeteHttp.execute(SERVERADDR);
     }
-    private List<Formation> parserFactureList(JSONArray jsonTabFacture) throws JSONException {
+    private List<Formation> parserFormationList(JSONArray jsonTabFormation) throws JSONException {
         List<Formation> formationList = new ArrayList<>();
         Formation formation = null;
-        for (int i=0; i<jsonTabFacture.length(); i++){
-            int id = jsonTabFacture.getJSONObject(i).getInt("id");
-            int cout = jsonTabFacture.getJSONObject(i).getInt("cout");
-            String image = jsonTabFacture.getJSONObject(i).getString("image");
-            String nom = jsonTabFacture.getJSONObject(i).getString("nom");
-            String description = jsonTabFacture.getJSONObject(i).getString("description");
+        for (int i=0; i<jsonTabFormation.length(); i++){
+            int id = jsonTabFormation.getJSONObject(i).getInt("id");
+            int cout = jsonTabFormation.getJSONObject(i).getInt("cout");
+            String image = jsonTabFormation.getJSONObject(i).getString("image");
+            String nom = jsonTabFormation.getJSONObject(i).getString("nom");
+            String description = jsonTabFormation.getJSONObject(i).getString("description");
             formation = new Formation(id,cout,image,nom,description);
             Log.i(TAG, "i=" + i + " formation=" + formation);
             formationList.add(formation);
+
         }
         return formationList;
     }

@@ -22,22 +22,22 @@ public final class ControleurBdd implements Controleur {
         if(ControleurBdd.instance == null){
             ControleurBdd.instance = new ControleurBdd();
             accesBd = new AccesBd(context);
-            formationList = accesBd.getListFacture();
+            formationList = accesBd.getListFormation();
         }
         return ControleurBdd.instance;
     }
-    public void persisterFacture(Formation formation){
+    public void persisterFormation(Formation formation){
         accesBd.persister(formation);
         formationList.add(formation);
     }
-    public List<Formation> getFactureList(){
+    public List<Formation> getFormationList(){
         return formationList;
     }
-    public void setFacture(Formation formation){
+    public void setFormation(Formation formation){
         this.formation = formation;
     }
 
-    public Formation getFacture() {
+    public Formation getFormation() {
         return formation;
     }
 }

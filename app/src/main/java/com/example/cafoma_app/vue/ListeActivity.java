@@ -33,7 +33,7 @@ public class ListeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_liste);
-        getFactureListByMode();
+        getFormationListByMode();
         if(formationList != null){
             titreView.setText(titre);
             afficherListe();
@@ -42,7 +42,7 @@ public class ListeActivity extends AppCompatActivity {
             titreView.setText("Aucune formation");
         }
     }
-    private void getFactureListByMode(){
+    private void getFormationListByMode(){
         mode = getIntent().getIntExtra("mode", 2);
         titreView = (TextView) findViewById(R.id.titreId);
         if(mode == 0) {
@@ -53,33 +53,33 @@ public class ListeActivity extends AppCompatActivity {
             controleur = ControleurServeur.getInstance();
             titre = "formations";
         }
-        formationList = controleur.getFactureList();
+        formationList = controleur.getFormationList();
         Log.i(TAG,"formations=" + formationList);
     }
     private void afficherListe(){
-        List<String> strFactureList = formaterFactureList(formationList);
+        List<String> strFormationList = formaterFormationList(formationList);
         liste = (ListView) findViewById(R.id.listView);
         adapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_list_item_1,
-                strFactureList);
+                strFormationList);
         liste.setAdapter(adapter);
         liste.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Log.i(TAG, "position=" + position);
-                controleur.setFacture(formationList.get(position));
+                controleur.setFormation(formationList.get(position));
                 Intent intent = new Intent(ListeActivity.this, DetailActivity.class);
                 intent.putExtra("mode",mode);
                 startActivity(intent);
             }
         });
     }
-    private List<String> formaterFactureList(List<Formation> formations){
-        List<String> strFactureList = new ArrayList<>();
+    private List<String> formaterFormationList(List<Formation> formations){
+        List<String> strFormationList = new ArrayList<>();
         for (Formation formation : formations) {
-            strFactureList.add(formation.getFormationStr());
+            strFormationList.add(formation.getFormationStr());
         }
-        Log.i(TAG, "onCreate profilList=" + strFactureList);
-        return strFactureList;
+        Log.i(TAG, "onCreate profilList=" + strFormationList);
+        return strFormationList;
     }
 }

@@ -47,9 +47,9 @@ public class FormulaireActivity extends AppCompatActivity {
         btnEnregistrer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Formation formation = creerFacture();
+                Formation formation = creerFormation();
                 if(formation != null){
-                    controleurBdd.persisterFacture(formation);
+                    controleurBdd.persisterFormation(formation);
                     Intent intent = new Intent(FormulaireActivity.this, ListeActivity.class);
                     intent.putExtra("mode", 0);
                     startActivity(intent);
@@ -57,7 +57,7 @@ public class FormulaireActivity extends AppCompatActivity {
             }
         });
     }
-    private Formation creerFacture(){
+    private Formation creerFormation(){
         Formation formation = null;
         int id = Integer.parseInt(numId.getText().toString());
         int cout = Integer.parseInt(coutId.getText().toString());
