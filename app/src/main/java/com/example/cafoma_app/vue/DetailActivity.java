@@ -1,10 +1,14 @@
 package com.example.cafoma_app.vue;
 
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,9 +18,12 @@ import com.example.cafoma_app.controleur.Controleur;
 import com.example.cafoma_app.controleur.ControleurBdd;
 import com.example.cafoma_app.controleur.ControleurServeur;
 import com.example.cafoma_app.entite.Formation;
+import com.example.cafoma_app.entite.Ressource;
 
 import java.io.InputStream;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 
 public class DetailActivity extends AppCompatActivity {
     private static String TAG = "Formation Activity";
@@ -30,6 +37,9 @@ public class DetailActivity extends AppCompatActivity {
     private int mode;
     private String titre;
     private ImageView iwImage;
+    private List<Ressource> ressourceList;
+    private ListView liste;
+    private ArrayAdapter<String> adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +48,9 @@ public class DetailActivity extends AppCompatActivity {
         getFormationByMode();
         if(formation != null){
             titreView.setText(titre);
+            controleur = ControleurServeur.getInstance();
+            ressourceList = controleur.getRessourceList();
+            Log.i(TAG,"ressources=" + ressourceList);
             initialisationIhm();
         }
         else {
@@ -61,6 +74,7 @@ public class DetailActivity extends AppCompatActivity {
     private void initialisationIhm() {
         recupererComposant();
         renseignerComposant();
+        afficherListe();
     }
     private void recupererComposant(){
         id = (TextView) findViewById(R.id.id);
@@ -97,6 +111,21 @@ public class DetailActivity extends AppCompatActivity {
                 }
             }
         }).start();
-
+    }
+    private void afficherListe(){
+        List<String> strFormationList = formaterRessourceList(ressourceList);
+        liste = (ListView) findViewById(R.id.listView);
+        adapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_list_item_1,
+                strFormationList);
+        liste.setAdapter(adapter);
+    }
+    private List<String> formaterRessourceList(List<Ressource> ressources){
+        List<String> strRessourceList = new ArrayList<>();
+        for (Ressource ressource : ressources) {
+            strRessourceList.add(ressource.getRessourceStr());
+        }
+        Log.i(TAG, "onCreate profilList=" + strRessourceList);
+        return strRessourceList;
     }
 }

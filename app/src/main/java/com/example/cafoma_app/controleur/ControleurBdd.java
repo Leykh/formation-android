@@ -3,6 +3,7 @@ package com.example.cafoma_app.controleur;
 import android.content.Context;
 
 import com.example.cafoma_app.entite.Formation;
+import com.example.cafoma_app.entite.Ressource;
 import com.example.cafoma_app.model.AccesBd;
 
 import java.util.List;
@@ -13,6 +14,8 @@ public final class ControleurBdd implements Controleur {
     private static AccesBd accesBd;
     private Formation formation;
     private static List<Formation> formationList;
+    private static List<Ressource> ressourceList;
+    private Ressource ressource;
 
     private ControleurBdd(){
         super();
@@ -39,5 +42,14 @@ public final class ControleurBdd implements Controleur {
 
     public Formation getFormation() {
         return formation;
+    }
+    public List<Ressource> getRessourceList(){
+        return ressourceList;
+    }
+    public void setRessource(Formation formation){
+        this.ressource = ressource;
+    }
+    public Ressource getRessource() {
+        return ressource;
     }
 }
