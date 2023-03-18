@@ -46,10 +46,11 @@ public final class ControleurBdd implements Controleur {
     public List<Ressource> getRessourceList(){
         return ressourceList;
     }
-    public void setRessource(Formation formation){
+    public void setRessource(Ressource ressource){
         this.ressource = ressource;
     }
     public Ressource getRessource() {
         return ressource;
     }
+
 }

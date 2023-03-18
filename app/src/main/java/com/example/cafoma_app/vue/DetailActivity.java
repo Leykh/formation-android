@@ -1,7 +1,10 @@
 package com.example.cafoma_app.vue;
 
+import android.app.DownloadManager;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -119,6 +122,21 @@ public class DetailActivity extends AppCompatActivity {
                 android.R.layout.simple_list_item_1,
                 strFormationList);
         liste.setAdapter(adapter);
+        liste.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                controleur.setRessource(ressourceList.get(position));
+                String urlPdf = "http://10.0.2.2/formation/public/ressources/" + controleur.getRessource().getIdFormation()+"/"+controleur.getRessource().getRessource();
+                Log.i(TAG,"pdf");
+                DownloadManager manager = (DownloadManager) getSystemService(Context.DOWNLOAD_SERVICE);
+                Uri uri = Uri.parse(urlPdf);
+                Log.i(TAG,"uri="+uri);
+                DownloadManager.Request request = new DownloadManager.Request(uri);
+                request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE);
+                long reference = manager.enqueue(request);
+                Log.i(TAG,"reference=" + reference);
+            }
+        });
     }
     private List<String> formaterRessourceList(List<Ressource> ressources){
         List<String> strRessourceList = new ArrayList<>();

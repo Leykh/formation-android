@@ -11,4 +11,6 @@ public interface Controleur {
     void setFormation(Formation formation);
     Formation getFormation();
     Ressource getRessource();
+
+    void setRessource(Ressource ressource);
 }
