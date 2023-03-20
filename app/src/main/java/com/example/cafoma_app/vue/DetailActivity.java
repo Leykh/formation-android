@@ -77,7 +77,7 @@ public class DetailActivity extends AppCompatActivity {
     private void initialisationIhm() {
         recupererComposant();
         renseignerComposant();
-        afficherListe();
+        afficherListeRessource();
     }
     private void recupererComposant(){
         id = (TextView) findViewById(R.id.id);
@@ -115,7 +115,7 @@ public class DetailActivity extends AppCompatActivity {
             }
         }).start();
     }
-    private void afficherListe(){
+    private void afficherListeRessource(){
         List<String> strFormationList = formaterRessourceList(ressourceList);
         liste = (ListView) findViewById(R.id.listView);
         adapter = new ArrayAdapter<String>(this,
@@ -141,7 +141,9 @@ public class DetailActivity extends AppCompatActivity {
     private List<String> formaterRessourceList(List<Ressource> ressources){
         List<String> strRessourceList = new ArrayList<>();
         for (Ressource ressource : ressources) {
+            if (ressource.getIdFormation() == controleur.getFormation().getNumFormation()){
             strRessourceList.add(ressource.getRessourceStr());
+            }
         }
         Log.i(TAG, "onCreate profilList=" + strRessourceList);
         return strRessourceList;

@@ -11,7 +11,8 @@
         android:label="cafoma_app"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.AppCompat.DayNight">
+        android:theme="@style/Theme.AppCompat.DayNight"
+        android:usesCleartextTraffic="true">
 
         <activity
             android:name="com.example.cafoma_app.vue.DetailActivity"

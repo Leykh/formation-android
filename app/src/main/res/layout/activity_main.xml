@@ -7,71 +7,70 @@
     tools:context=".vue.MainActivity"
     android:orientation="vertical">
 
-    <LinearLayout
+    <RelativeLayout
+        android:id="@+id/loadingPanel"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:gravity="center_horizontal|center_vertical"
-        android:orientation="vertical"
+        android:background="@color/dimBackgroundColor"
+        android:elevation="2dp"
+        android:visibility="gone"
+        android:gravity="center">
 
-        android:visibility="gone">
-
-        <TextView
+        <ProgressBar
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Faire une formation  BD"
-            android:textSize="28sp" />
 
-        <ImageButton
-            android:id="@+id/btnFormulaire"
-            android:layout_width="wrap_content"
-            android:layout_height="151dp"
-            app:srcCompat="@drawable/formulaire" />
+            android:elevation="10dp"
+            android:background="@drawable/rounded_corners"
+            android:indeterminate="true" />
+    </RelativeLayout>
 
-    </LinearLayout>
-
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:gravity="center_horizontal|center_vertical"
-        android:orientation="vertical"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:gravity="center">
 
-        android:visibility="gone">
-
-        <TextView
-            android:layout_width="wrap_content"
+        <EditText
+            android:id="@+id/editText_login_username"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Liste formation BD"
-            android:textSize="28sp" />
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentStart="true"
+            android:ems="10"
+            android:hint="username"
+            android:inputType="textPersonName" />
 
-        <ImageButton
-            android:id="@+id/btnListeBdd"
-            android:layout_width="wrap_content"
-            android:layout_height="170dp"
-            app:srcCompat="@drawable/liste" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:gravity="center_horizontal|center_vertical"
-        android:orientation="vertical">
-
-        <TextView
-            android:layout_width="wrap_content"
+        <EditText
+            android:id="@+id/editText_login_password"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Liste Formation"
-            android:textSize="28sp" />
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/editText_login_username"
+            android:ems="10"
+            android:hint="password"
+            android:inputType="textPassword" />
 
-        <ImageButton
-            android:id="@+id/btnListeServeur"
-            android:layout_width="238dp"
-            android:layout_height="166dp"
-            app:srcCompat="@drawable/aliste" />
+        <Button
+            android:id="@+id/button_login_login"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/editText_login_password"
+            android:layout_marginTop="41dp"
+            android:text="Login" />
 
-    </LinearLayout>
+    </RelativeLayout>
 
 </LinearLayout>
