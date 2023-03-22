@@ -2,6 +2,7 @@ package com.example.cafoma_app.model;
 
 import android.os.AsyncTask;
 import android.util.Log;
+import android.view.View;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -12,9 +13,17 @@ import java.net.URL;
 
 public class RequeteHttp extends AsyncTask<String, Void, String> {
     private final static String TAG = "RequeteHttp";
-
-    public ReponseAsyncItf reponseAsync =null; // gestion du retour asynchrone, réponse serbeur
+    public View view;
+    public ReponseAsyncItf reponseAsync =null; // gestion du retour asynchrone, réponse serveur
     private String parametres = ""; // paramètres de l'URL
+
+    public RequeteHttp(View view){
+        super();
+        this.view = view;
+    }
+    public RequeteHttp(){
+        super();
+    }
 
     public void addParam(String nom, String valeur) {
             if (parametres.equals("")) {
@@ -23,6 +32,14 @@ public class RequeteHttp extends AsyncTask<String, Void, String> {
                 // paramètres suivants (séparés par &)
                 parametres += "&" + nom + "=" + valeur;
             }
+    }
+
+    @Override
+    protected void onPreExecute() {
+        super.onPreExecute();
+        if (view != null){
+        view.setVisibility(View.VISIBLE);
+        }
     }
     // . . .
     @Override
@@ -48,6 +65,9 @@ public class RequeteHttp extends AsyncTask<String, Void, String> {
 
     @Override
     protected void onPostExecute(String result) {
+        if(view!= null){
+        view.setVisibility(View.GONE);
+        }
         reponseAsync.reponseRequete(result);
     }
 

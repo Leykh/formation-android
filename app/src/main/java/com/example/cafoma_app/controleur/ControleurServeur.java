@@ -1,11 +1,19 @@
 package com.example.cafoma_app.controleur;
 
 
+import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 
 import com.example.cafoma_app.entite.Formation;
 import com.example.cafoma_app.entite.Ressource;
+import com.example.cafoma_app.entite.User;
 import com.example.cafoma_app.model.AccesDistant;
+import com.example.cafoma_app.vue.ListeActivity;
+import com.example.cafoma_app.vue.MainActivity;
 
 import java.util.List;
 
@@ -17,6 +25,7 @@ public final class ControleurServeur implements Controleur {
     private Formation formation;
     private List<Ressource> ressourceList;
     private Ressource ressource;
+    private User user;
 
     private ControleurServeur(){
         super();
@@ -48,4 +57,12 @@ public final class ControleurServeur implements Controleur {
     public Ressource getRessource(){ return ressource; }
     public void setRessource(Ressource ressource){ this.ressource = ressource; }
 
+    public void initUser(String username, String password, View view, Intent intent, Activity activity){
+        accesDistant = new AccesDistant(intent, activity);
+        accesDistant.envoyerRequeteView("mdp" +"&login=" + username + "&password=" + password ,view);
+    }
+    public User getUser(){ return user; }
+
+    public void setUser(User user){ this.user = user; }
 }
+

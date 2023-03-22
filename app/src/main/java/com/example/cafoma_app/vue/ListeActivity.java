@@ -34,6 +34,8 @@ public class ListeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_liste);
         getFormationListByMode();
+        setTitle("Bonjour " + controleur.getUser().getLogin());
+        Log.i(TAG,"***************************** : " + controleur.getUser());
         if(formationList != null){
             titreView.setText(titre);
             afficherListe();

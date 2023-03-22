@@ -66,4 +66,8 @@ public class Formation {
     public void setDescription(String description) {
         this.description = description;
     }
+    public String toStringShort() {
+        return "F:{" +
+                "id='" + id +'}';
+    }
 }

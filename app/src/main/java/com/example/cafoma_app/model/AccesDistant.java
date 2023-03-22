@@ -1,13 +1,21 @@
 package com.example.cafoma_app.model;
 
+import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
+import android.view.View;
+import android.widget.Toast;
 
+import com.example.cafoma_app.controleur.Controleur;
 import com.example.cafoma_app.controleur.ControleurServeur;
 import com.example.cafoma_app.entite.Formation;
 import com.example.cafoma_app.entite.Ressource;
+import com.example.cafoma_app.entite.User;
 
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -18,6 +26,15 @@ public class AccesDistant implements ReponseAsyncItf {
     private static final String SERVERADDR = "http://10.0.2.2/formation/formation.rest.php";
     private ControleurServeur controleurServeur;
     public AccesDistant(){
+        controleurServeur = ControleurServeur.getInstance();
+    }
+    public Intent intent;
+    public Activity activity;
+
+    public AccesDistant(Intent intent, Activity activity){
+        super();
+        this.intent = intent;
+        this.activity = activity;
         controleurServeur = ControleurServeur.getInstance();
     }
     @Override
@@ -48,10 +65,34 @@ public class AccesDistant implements ReponseAsyncItf {
             else if (message[0].equals("erreur")) {
                 Log.i(TAG,"Erreur : " + message[1]);
             }
+            if (message[0].equals("mdp")) {
+                try {
+                    JSONObject jsonTabMdp = new JSONObject(message[1]);
+                    User user = parserUserList(jsonTabMdp);
+                    controleurServeur.setUser(user);
+                    if (user.getValide().equals("vrai")){
+                        activity.startActivity(intent);
+                    }
+                    else{
+                        Toast.makeText(activity, "Login Failed : " + user.getValide(), Toast.LENGTH_LONG).show();
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+            else if (message[0].equals("erreur")) {
+                Log.i(TAG,"Erreur : " + message[1]);
+            }
         }
     }
     public void envoyerRequete(String operation){
         RequeteHttp requeteHttp = new RequeteHttp();
+        requeteHttp.reponseAsync = this;
+        requeteHttp.addParam("operation", operation);
+        requeteHttp.execute(SERVERADDR);
+    }
+    public void envoyerRequeteView(String operation, View view){
+        RequeteHttp requeteHttp = new RequeteHttp(view);
         requeteHttp.reponseAsync = this;
         requeteHttp.addParam("operation", operation);
         requeteHttp.execute(SERVERADDR);
@@ -80,9 +121,23 @@ public class AccesDistant implements ReponseAsyncItf {
             String description = jsonTabRessource.getJSONObject(i).getString("description");
             String ressources = jsonTabRessource.getJSONObject(i).getString("ressource");
             ressource = new Ressource(idRessource,idFormation,description,ressources);
-            Log.i(TAG, "i=" + i + " ressource=" + ressource);
             ressourceList.add(ressource);
         }
         return ressourceList;
+    }/*
+    private User parserUserList(JSONObject jsonUser) throws JSONException {
+        User user = null;
+        String login = jsonUser.getString("login");
+        String verif = jsonUser.getString("verif");
+        user = new User(login,verif);
+        return user;
+    }*/
+    private User parserUserList(JSONObject jsonUser) throws JSONException {
+        User user = null;
+            String login = jsonUser.getString("login");
+            String verif = jsonUser.getString("verif");
+            List<Formation> formations = parserFormationList(jsonUser.getJSONArray("formations"));
+            user = new User(login,verif,formations);
+        return user;
     }
 }
