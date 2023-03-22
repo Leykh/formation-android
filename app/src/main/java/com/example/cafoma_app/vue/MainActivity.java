@@ -56,7 +56,6 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent = new Intent(MainActivity.this, ListeActivity.class);
                 intent.putExtra("mode", 1); // mode seveur
                 controleur.initUser(username,password,findViewById(R.id.loadingPanel),intent, MainActivity.this);
-                    Toast.makeText(getApplicationContext(), "Login Failed", Toast.LENGTH_LONG).show();
             }
         });
     }

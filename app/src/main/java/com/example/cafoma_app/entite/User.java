@@ -34,7 +34,7 @@ public class User {
         return "User{" +
                 "login='" + login + '\'' +
                 ", valide='" + valide +
-                ", Formations='" + afficheShortFormation(formationInscrit)+
+                ", Formations='" + formationInscrit!=null? afficheShortFormation(formationInscrit) : "" +
                 '}';
     }
 

@@ -108,7 +108,6 @@ public class AccesDistant implements ReponseAsyncItf {
             String description = jsonTabFormation.getJSONObject(i).getString("description");
             formation = new Formation(id,cout,image,nom,description);
             formationList.add(formation);
-
         }
         return formationList;
     }
@@ -134,9 +133,10 @@ public class AccesDistant implements ReponseAsyncItf {
     }*/
     private User parserUserList(JSONObject jsonUser) throws JSONException {
         User user = null;
+        List<Formation> formations = null;
             String login = jsonUser.getString("login");
             String verif = jsonUser.getString("verif");
-            List<Formation> formations = parserFormationList(jsonUser.getJSONArray("formations"));
+            formations = parserFormationList(jsonUser.getJSONArray("formations"));
             user = new User(login,verif,formations);
         return user;
     }
