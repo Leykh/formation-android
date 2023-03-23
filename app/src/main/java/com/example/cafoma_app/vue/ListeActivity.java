@@ -45,18 +45,18 @@ public class ListeActivity extends AppCompatActivity {
         }
     }
     private void getFormationListByMode(){
-        mode = getIntent().getIntExtra("mode", 2);
+        mode = getIntent().getIntExtra("mode", -1);
         titreView = (TextView) findViewById(R.id.titreId);
-        if(mode == 0) {
-            controleur = ControleurBdd.getInstance(this);
-            titre = "formations";
+        if(mode == 1) {
+            controleur = ControleurServeur.getInstance();
+            titre = "Mes formations";
+            formationList = controleur.getUser().getFormationList();
         }
         else {
             controleur = ControleurServeur.getInstance();
-            titre = "formations";
+            titre = "Liste des formations";
+            formationList = controleur.getFormationList();
         }
-        formationList = controleur.getFormationList();
-        Log.i(TAG,"formations=" + formationList);
     }
     private void afficherListe(){
         List<String> strFormationList = formaterFormationList(formationList);
@@ -81,7 +81,6 @@ public class ListeActivity extends AppCompatActivity {
         for (Formation formation : formations) {
             strFormationList.add(formation.getFormationStr());
         }
-        Log.i(TAG, "onCreate profilList=" + strFormationList);
         return strFormationList;
     }
 }

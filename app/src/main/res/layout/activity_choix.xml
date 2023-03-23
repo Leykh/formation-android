@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".vue.ListeActivity"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/titreId"
+        android:layout_width="match_parent"
+        android:layout_height="225dp"
+        android:gravity="center"
+        android:text="Liste des formations"
+        android:textSize="70sp" />
+
+    <TextView
+        android:id="@+id/titreId2"
+        android:layout_width="match_parent"
+        android:layout_height="225dp"
+        android:gravity="center"
+        android:text="Mes formations"
+        android:textSize="70sp"
+        android:background="#d3d3d3"/>
+
+</LinearLayout>

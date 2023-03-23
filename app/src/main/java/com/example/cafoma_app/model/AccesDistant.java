@@ -74,7 +74,7 @@ public class AccesDistant implements ReponseAsyncItf {
                         activity.startActivity(intent);
                     }
                     else{
-                        Toast.makeText(activity, "Login Failed : " + user.getValide(), Toast.LENGTH_LONG).show();
+                        Toast.makeText(activity, "Login Failed", Toast.LENGTH_LONG).show();
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -137,7 +137,13 @@ public class AccesDistant implements ReponseAsyncItf {
             String login = jsonUser.getString("login");
             String verif = jsonUser.getString("verif");
             formations = parserFormationList(jsonUser.getJSONArray("formations"));
-            user = new User(login,verif,formations);
+            if (jsonUser.getJSONArray("formations").getJSONObject(0).getInt("id") == -1){
+                user = new User(login,verif);
+            }
+            else{
+
+                user = new User(login,verif,formations);
+            }
         return user;
     }
 }

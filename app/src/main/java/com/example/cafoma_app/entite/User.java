@@ -9,7 +9,7 @@ public class User {
     private String role;
     private String image;
     private String valide;
-    private static List<Formation> formationInscrit;
+    private List<Formation> formationInscrit;
 
     public User(String login, String password, String mail, String role, String image) {
         this.login = login;
@@ -34,7 +34,7 @@ public class User {
         return "User{" +
                 "login='" + login + '\'' +
                 ", valide='" + valide +
-                ", Formations='" + formationInscrit!=null? afficheShortFormation(formationInscrit) : "" +
+                ", Formations='" + afficheShortFormation(formationInscrit) +
                 '}';
     }
 
@@ -56,10 +56,16 @@ public class User {
     public String getValide() { return valide; }
     public void setValide(String valide) { this.valide = valide; }
 
+    public List<Formation> getFormationList(){
+        return formationInscrit;
+    }
+
     public String afficheShortFormation (List<Formation> formations){
         String affiche = "";
-        for(Formation f : formations){
-            affiche = affiche+f.toStringShort();
+        if (formations != null){
+            for(Formation f : formations){
+                affiche = affiche+f.toStringShort();
+            }
         }
         return affiche;
     }
