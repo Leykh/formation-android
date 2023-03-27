@@ -13,6 +13,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -147,5 +148,37 @@ public class DetailActivity extends AppCompatActivity {
         }
         Log.i(TAG, "onCreate profilList=" + strRessourceList);
         return strRessourceList;
+
     }
+    private long downloadFile(Uri uri, String fileStorageDestinationUri, String fileName) {
+
+        long downloadReference = 0;
+
+        DownloadManager downloadManager = (DownloadManager) getSystemService(DOWNLOAD_SERVICE);
+        try {
+            DownloadManager.Request request = new DownloadManager.Request(uri);
+
+            //Setting title of request
+            request.setTitle(fileName);
+
+            //Setting description of request
+            request.setDescription("Your file is downloading");
+
+            //set notification when download completed
+            request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
+
+            //Set the local destination for the downloaded file to a path within the application's external files directory
+            request.setDestinationInExternalPublicDir(fileStorageDestinationUri, fileName);
+
+            request.allowScanningByMediaScanner();
+
+            //Enqueue download and save the referenceId
+            downloadReference = downloadManager.enqueue(request);
+        } catch (IllegalArgumentException e) {
+            Toast.makeText(this, "Download not working", Toast.LENGTH_LONG).show();
+
+        }
+        return downloadReference;
+    }
+
 }

@@ -35,7 +35,7 @@ public class ChoixListeActivity extends AppCompatActivity {
         @Override
         public void onClick(View v) {
             Intent intent = new Intent(ChoixListeActivity.this, ListeActivity.class);
-            intent.putExtra("mode", 0);
+            intent.putExtra("mode", 2);
             startActivity(intent);
         }
     });
