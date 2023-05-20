@@ -24,4 +24,12 @@
         android:textSize="70sp"
         android:background="#d3d3d3"/>
 
+    <TextView
+        android:id="@+id/titreId3"
+        android:layout_width="match_parent"
+        android:layout_height="225dp"
+        android:gravity="center"
+        android:text="Mes favoris"
+        android:textSize="70sp" />
+
 </LinearLayout>

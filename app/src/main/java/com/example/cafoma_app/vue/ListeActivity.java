@@ -26,6 +26,7 @@ public class ListeActivity extends AppCompatActivity {
     private ArrayAdapter<String> adapter;
     private List<Formation> formationList;
     private Controleur controleur;
+    private Controleur controleurBdd;
     private TextView titreView;
     private int mode;
     private String titre;
@@ -34,9 +35,10 @@ public class ListeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_liste);
         getFormationListByMode();
-        setTitle("Bonjour " + controleur.getUser().getLogin());
-        Log.i(TAG,"***************************** : " + controleur.getUser());
         if(formationList != null){
+            if (mode == 1){
+                setTitle("Bonjour " + controleur.getUser().getLogin());
+            }
             titreView.setText(titre);
             afficherListe();
         }
@@ -52,10 +54,15 @@ public class ListeActivity extends AppCompatActivity {
             titre = "Mes formations";
             formationList = controleur.getUser().getFormationList();
         }
-        else {
+        else if(mode == 2) {
             controleur = ControleurServeur.getInstance();
             titre = "Liste des formations";
             formationList = controleur.getFormationList();
+        }
+        else {
+            controleurBdd = ControleurBdd.getInstance(this);
+            titre = "Favoris";
+            formationList = controleurBdd.getFormationList();
         }
     }
     private void afficherListe(){

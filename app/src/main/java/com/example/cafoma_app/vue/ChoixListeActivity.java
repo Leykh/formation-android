@@ -18,6 +18,7 @@ public class ChoixListeActivity extends AppCompatActivity {
     private Controleur controleur;
     private TextView titreViewFormationsListe;
     private TextView titreViewMesFormations;
+    private TextView titreViewMesFavoris;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +27,7 @@ public class ChoixListeActivity extends AppCompatActivity {
         controleur = ControleurServeur.getInstance();
         titreViewFormationsListe = (TextView) findViewById(R.id.titreId);
         titreViewMesFormations = (TextView) findViewById(R.id.titreId2);
+        titreViewMesFavoris = (TextView) findViewById(R.id.titreId3);
         initChoix();
 
     }
@@ -44,6 +46,14 @@ public class ChoixListeActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(ChoixListeActivity.this, ListeActivity.class);
                 intent.putExtra("mode", 1);
+                startActivity(intent);
+            }
+        });
+        titreViewMesFavoris.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ChoixListeActivity.this, ListeActivity.class);
+                intent.putExtra("mode", 3);
                 startActivity(intent);
             }
         });

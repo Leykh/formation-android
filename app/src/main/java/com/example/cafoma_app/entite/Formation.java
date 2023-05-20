@@ -22,7 +22,7 @@ public class Formation {
         this.description = description;
     }
     public String getFormationStr(){
-        return "NUMERO FORMATION  :" + id + " NOM : " + nom + " MONTANT :" + cout;
+        return  nom;
     }
     @Override
     public String toString() {

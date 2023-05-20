@@ -123,14 +123,7 @@ public class AccesDistant implements ReponseAsyncItf {
             ressourceList.add(ressource);
         }
         return ressourceList;
-    }/*
-    private User parserUserList(JSONObject jsonUser) throws JSONException {
-        User user = null;
-        String login = jsonUser.getString("login");
-        String verif = jsonUser.getString("verif");
-        user = new User(login,verif);
-        return user;
-    }*/
+    }
     private User parserUserList(JSONObject jsonUser) throws JSONException {
         User user = null;
         List<Formation> formations = null;

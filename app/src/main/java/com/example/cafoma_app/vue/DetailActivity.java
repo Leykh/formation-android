@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -23,6 +24,7 @@ import com.example.cafoma_app.controleur.ControleurBdd;
 import com.example.cafoma_app.controleur.ControleurServeur;
 import com.example.cafoma_app.entite.Formation;
 import com.example.cafoma_app.entite.Ressource;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.io.InputStream;
 import java.net.URL;
@@ -35,6 +37,7 @@ public class DetailActivity extends AppCompatActivity {
     private TextView id;
     private TextView cout;
     private TextView nom;
+    private FloatingActionButton favori;
     private TextView description;
     private Controleur controleur;
     private Formation formation;
@@ -44,6 +47,7 @@ public class DetailActivity extends AppCompatActivity {
     private List<Ressource> ressourceList;
     private ListView liste;
     private ArrayAdapter<String> adapter;
+    private ControleurBdd controleurBdd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +59,7 @@ public class DetailActivity extends AppCompatActivity {
             controleur = ControleurServeur.getInstance();
             ressourceList = controleur.getRessourceList();
             Log.i(TAG,"ressources=" + ressourceList);
+            Log.i(TAG,"mode=" + mode);
             initialisationIhm();
         }
         else {
@@ -64,26 +69,43 @@ public class DetailActivity extends AppCompatActivity {
     private void getFormationByMode(){
         mode = getIntent().getIntExtra("mode", 2);
         titreView = (TextView) findViewById(R.id.titreId);
-        if(mode == 0) {
-            controleur = ControleurBdd.getInstance(this);
-            titre = "Formation BDD";
+        if(mode == 1) {
+            controleur = ControleurServeur.getInstance();
+            titre = "Mes formations";
+            formation = controleur.getFormation();
+        }
+        else if(mode == 3){
+            controleurBdd = ControleurBdd.getInstance(this);
+            titre = "Favoris";
+            formation = controleurBdd.getFormation();
         }
         else {
             controleur = ControleurServeur.getInstance();
             titre = "Formation Serveur";
+            formation = controleur.getFormation();
         }
-        formation = controleur.getFormation();
         Log.i(TAG,"formation=" + formation);
     }
     private void initialisationIhm() {
         recupererComposant();
         renseignerComposant();
-        afficherListeRessource();
+        if (mode == 1){
+            afficherListeRessource();
+        }
+        if (mode ==2){
+            favori.setVisibility(View.VISIBLE);
+            ajouterFavoris();
+        }
+        if (mode == 3){
+            favori.setVisibility(View.VISIBLE);
+            ajouterFavoris();
+        }
     }
     private void recupererComposant(){
         id = (TextView) findViewById(R.id.id);
         cout = (TextView) findViewById(R.id.coutId);
         nom = (TextView) findViewById(R.id.nomId);
+        favori = findViewById(R.id.buttonFavori);
         description = (TextView) findViewById(R.id.descriptionId);
         iwImage = findViewById(R.id.imageIdFormation);
     }
@@ -115,6 +137,19 @@ public class DetailActivity extends AppCompatActivity {
                 }
             }
         }).start();
+    }
+    private void ajouterFavoris(){
+
+        favori.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mode == 2){
+                    Log.i(TAG,"ajoutfavoris");
+                    //controleurBdd.persister(formation);
+                }
+            }
+        });
+
     }
     private void afficherListeRessource(){
         List<String> strFormationList = formaterRessourceList(ressourceList);
