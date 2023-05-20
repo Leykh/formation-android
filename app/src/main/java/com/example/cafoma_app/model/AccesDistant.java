@@ -23,7 +23,7 @@ import java.util.List;
 
 public class AccesDistant implements ReponseAsyncItf {
     private final static String TAG = "AccesDistant";
-    private static final String SERVERADDR = "http://10.0.2.2/formation/formation.rest.php";
+    private static final String SERVERADDR = "https://ducoeurc.eu/formation.rest.php";
     private ControleurServeur controleurServeur;
     public AccesDistant(){
         controleurServeur = ControleurServeur.getInstance();
