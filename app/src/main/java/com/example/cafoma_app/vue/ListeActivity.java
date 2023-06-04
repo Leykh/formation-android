@@ -60,9 +60,9 @@ public class ListeActivity extends AppCompatActivity {
             formationList = controleur.getFormationList();
         }
         else {
-            controleurBdd = ControleurBdd.getInstance(this);
+            controleur = ControleurBdd.getInstance(this);
             titre = "Favoris";
-            formationList = controleurBdd.getFormationList();
+            formationList = controleur.getFormationList();
         }
     }
     private void afficherListe(){
@@ -76,6 +76,7 @@ public class ListeActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Log.i(TAG, "position=" + position);
+                Log.i(TAG, "formation List ************** =" + formationList);
                 controleur.setFormation(formationList.get(position));
                 Intent intent = new Intent(ListeActivity.this, DetailActivity.class);
                 intent.putExtra("mode",mode);

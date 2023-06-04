@@ -3,6 +3,7 @@ package com.example.cafoma_app.controleur;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.View;
 
 import com.example.cafoma_app.entite.Formation;
@@ -17,8 +18,8 @@ public final class ControleurBdd implements Controleur {
     private static ControleurBdd instance = null ;
     private static AccesBd accesBd;
     private Formation formation;
-    private static List<Formation> formationList;
-    private static List<Ressource> ressourceList;
+    private static List<Formation> formationListBd;
+    private static List<Ressource> ressourceListBd;
     private Ressource ressource;
     private User user;
 
@@ -30,16 +31,16 @@ public final class ControleurBdd implements Controleur {
         if(ControleurBdd.instance == null){
             ControleurBdd.instance = new ControleurBdd();
             accesBd = new AccesBd(context);
-            formationList = accesBd.getListFormation();
+            formationListBd = accesBd.getListFormation();
         }
         return ControleurBdd.instance;
     }
     public void persisterFormation(Formation formation){
         accesBd.persister(formation);
-        formationList.add(formation);
+        formationListBd.add(formation);
     }
     public List<Formation> getFormationList(){
-        return formationList;
+        return formationListBd;
     }
     public void setFormation(Formation formation){
         this.formation = formation;
@@ -49,7 +50,7 @@ public final class ControleurBdd implements Controleur {
         return formation;
     }
     public List<Ressource> getRessourceList(){
-        return ressourceList;
+        return ressourceListBd;
     }
     public void setRessource(Ressource ressource){
         this.ressource = ressource;

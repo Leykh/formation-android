@@ -58,6 +58,7 @@ public class DetailActivity extends AppCompatActivity {
             titreView.setText(titre);
             controleur = ControleurServeur.getInstance();
             ressourceList = controleur.getRessourceList();
+            controleurBdd = ControleurBdd.getInstance(this);
             Log.i(TAG,"ressources=" + ressourceList);
             Log.i(TAG,"mode=" + mode);
             initialisationIhm();
@@ -115,7 +116,7 @@ public class DetailActivity extends AppCompatActivity {
         nom.setText(formation.getNom());
         description.setText(formation.getDescription());
         iwImage.setVisibility(View.VISIBLE);
-        loadImageView(iwImage,"http://10.0.2.2/formation/public/images/" + formation.getImage());
+        loadImageView(iwImage,"https://ducoeurc.eu/public/images/" + formation.getImage());
     }
     private void loadImageView (ImageView img, String url) {
         Log.i("loadImageView",url);
@@ -144,8 +145,8 @@ public class DetailActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (mode == 2){
-                    Log.i(TAG,"ajoutfavoris");
-                    //controleurBdd.persister(formation);
+                    Log.i(TAG,"ajoutfavoris : " + formation);
+                    controleurBdd.persisterFormation(formation);
                 }
             }
         });
@@ -162,7 +163,7 @@ public class DetailActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 controleur.setRessource(ressourceList.get(position));
-                String urlPdf = "http://10.0.2.2/formation/public/ressources/" + controleur.getRessource().getIdFormation()+"/"+controleur.getRessource().getRessource();
+                String urlPdf = "https://ducoeurc.eu/public/ressources/" + controleur.getRessource().getIdFormation()+"/"+controleur.getRessource().getRessource();
                 Log.i(TAG,"pdf");
                 DownloadManager manager = (DownloadManager) getSystemService(Context.DOWNLOAD_SERVICE);
                 Uri uri = Uri.parse(urlPdf);
